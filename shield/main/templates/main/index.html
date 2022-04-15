@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+	<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SHIELD</title>
+        <link rel="stylesheet" href="{% static 'main/css/style.css'%}">
+	</head>
+
+	<body>
+
+    <!-- CONTENT  -->
+
+    {% for product in products %}
+        name: {{product.p_name}} <br>
+        type: {{product.p_type}} <br>
+        price: {{product.p_price}} <br>
+        amount: {{product.p_amount}} <br>
+        description: {{product.description}}
+    {% endfor %}
+
+	<!-- Main JS -->
+	<script src="{% static 'main/js/main.js'%}"></script>
+	</body>
+</html>
