@@ -66,6 +66,9 @@ def store(request):
     cartItems = data['cartItems']
     order = data['order']
 
+    testdata = Product.objects.first().__dict__
+    print(f'testdata --- {testdata}')
+
     products = Product.objects.all()
     context = {
         'products':products,

@@ -1257,8 +1257,8 @@ select option
 .shop
 {
 	background: #FFFFFF;
-	padding-top: 80px;
-	padding-bottom: 139px;
+	padding-top: 5%;
+	padding-bottom: 10%;
 }
 .shop_content
 {
@@ -1939,8 +1939,8 @@ select option
 .brands
 {
 	width: 100%;
-	padding-top: 90px;
-	padding-bottom: 90px;
+	padding-top: 6%;
+	padding-bottom: 6%;
 }
 .brands_slider_container
 {

@@ -13,6 +13,8 @@ import os.path
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+import django_heroku
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -25,8 +27,7 @@ SECRET_KEY = 'django-insecure-=o5yb9w@+9$6tg%j4v6s@mjrrt3mt5vtis36@sn=d+-zsm11q(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.202.1.199',
-                 'localhost']
+ALLOWED_HOSTS = ['karibay-shield.herokuapp.com']
 
 
 # Application definition
@@ -79,10 +80,10 @@ WSGI_APPLICATION = 'shield.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'shield',
-        'USER': 'postgres',
-        'PASSWORD': '1991',
-        'HOST': 'localhost',
+        'NAME': 'd7igprf4052bd6',
+        'USER': 'seduzjwganqkxf',
+        'PASSWORD': 'b74d2918509b727a7ee235e21f1cfabe725cd46d1e90264c7422e86c403d4eb2',
+        'HOST': 'ec2-54-158-247-210.compute-1.amazonaws.com',
         'PORT': '5432'
     }
 }
@@ -122,17 +123,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
-MEDIA_URL = '/images/'
+
+
 LOGIN_REDIRECT_URL = 'store'
 LOGOUT_REDIRECT_URL = 'store'
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+django_heroku.settings(locals())
+MEDIA_URL = '/images/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
