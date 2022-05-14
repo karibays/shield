@@ -1,3 +1,4 @@
+from django.views.generic import TemplateView, ListView
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import datetime
@@ -7,6 +8,7 @@ from .utils import cartData, guestOrder
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
 
+from django.db.models import Q
 
 
 def productCategory(request, pk):
@@ -65,13 +67,10 @@ def store(request):
     cartItems = data['cartItems']
     order = data['order']
 
-    testdata = Product.objects.first().__dict__
-    print(f'testdata --- {testdata}')
-
     products = Product.objects.all()
     context = {
-        'products':products,
-        'cartItems':cartItems,
+        'products': products,
+        'cartItems': cartItems,
         'order': order,
     }
     return render(request, 'store/store.html', context)
@@ -133,6 +132,18 @@ def updateItem(request):
         orderItem.delete()
 
     return JsonResponse('Item was added', safe=False)
+
+
+class SearchResultsView(ListView):
+    model = Product
+    template_name = 'store/search_results.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('context')
+        object_list = Product.objects.filter(
+            Q(name__icontains=query) | Q(category__icontains=query) | Q(description__icontains=query)
+        )
+        return object_list
 
 
 @csrf_exempt

@@ -9,6 +9,8 @@ urlpatterns = [
     path('api/register', api.ShieldUserRegistrationAPIView.as_view(), name='apiUserRegistration'),
     path('api/login', api.ShieldUserLoginAPIView.as_view(), name='apiUserLogin'),
 
+    path('search/', views.SearchResultsView.as_view(), name='search_results'),
+
     path('product/<int:pk>/', views.productdetail, name='productdetail'),
     path('product_category/<str:pk>/', views.productCategory, name='productCategory'),
     path('register/', views.register, name='register'),

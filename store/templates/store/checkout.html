@@ -8,12 +8,6 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/cart_responsive.css' %}">
 {% endblock css %}
 
-
-
-
-{% block image %}
-{% endblock image %}
-
 {% block content%}
 
 <div class="container">
@@ -61,7 +55,8 @@
 				<br>
 				<div class="box-element hidden" id="payment-info">
 					<h3>Paypal Option</h3>
-					<button id="make-payment" class="btn btn-success btn-block">Make Payment</button>
+					<div id="paypal-button-container"></div>
+<!--					<button id="make-payment" class="btn btn-success btn-block">Make Payment</button>-->
 				</div>
 		</div>
 
@@ -88,10 +83,6 @@
 									<div class="cart_item_text">${{ item.product.price|floatformat:2 }}</div>
 								</div>
 
-								<div class="cart_item_total cart_info_col">
-									<div class="cart_item_title">Total</div>
-									<div class="cart_item_text">${{ item.get_total|floatformat:2 }}</div>
-								</div>
 							</div>
 						</li>
 						{% endfor %}
@@ -101,9 +92,49 @@
 	</div>
 </div>
 
+<script src="https://www.paypal.com/sdk/js?client-id=AdXRJQj1D1l3K-mtcI2urNZ75eeOP6Fus5wDz9AfEj30nT0nsNaxTTLoP9BBPXuijIzso59NYIjTtcIq&currency=USD"></script>
+<script>
+	// Render the PayPal button into #paypal-button-container
+	var total = '{{ order.get_cart_total}}'
+	paypal.Buttons({
+
+		style:{
+			color:'blue',
+			shape:'rect',
+		},
+
+		// Set up the transaction
+		createOrder: function(data, actions) {
+			return actions.order.create({
+				purchase_units: [{
+					amount: {
+						value: parseFloat(total).toFixed(2)
+					}
+				}]
+			});
+		},
+
+		// Finalize the transaction
+		onApprove: function(data, actions) {
+			return actions.order.capture().then(function(orderData) {
+				// Successful capture! For demo purposes:
+				console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+				var transaction = orderData.purchase_units[0].payments.captures[0];
+				submitFormData()
+
+				// Replace the above to show a success message within this page, e.g.
+				// const element = document.getElementById('paypal-button-container');
+				// element.innerHTML = '';
+				// element.innerHTML = '<h3>Thank you for your payment!</h3>';
+				// Or go to another URL:  actions.redirect('thank_you.html');
+			});
+		}
+	}).render('#paypal-button-container');
+</script>
+
 <script>
 	var shipping = '{{order.shipping}}'
-	var total = '{{ order.get_cart_total}}'
+
 
     if (shipping == 'False'){
 		 document.getElementById('shipping-info').innerHTML = ''
@@ -128,9 +159,11 @@
 	   	document.getElementById('payment-info').classList.remove("hidden");
 	})
 
+	/*
 	document.getElementById('make-payment').addEventListener('click', function(e){
 	    submitFormData()
 	})
+	*/
 
     function submitFormData(){
         console.log('Payment Button Clicked')
@@ -162,13 +195,10 @@
 
 	    }
 
-
 	    if (user == 'AnonymousUser'){
 	    	userFormData.name = form.name.value
 	    	userFormData.email = form.email.value
 	    }
-
-	    console.log(shippingInfo)
 
         var url = '/process_order/'
         fetch(url, {

@@ -21,11 +21,11 @@
 			<div class="row">
 
 				<!-- Images -->
-				<div class="col-lg-2 order-lg-1 order-2">
+				<div class="col-lg-1 order-lg-1 order-2">
 					<ul class="image_list">
-						<li><img src="{{ product.image }}" alt=""></li>
-						<li><img src="{{ product.image }}" alt=""></li>
-						<li><img src="{{ product.image }}" alt=""></li>
+<!--						<li><img src="{{ product.image }}" alt=""></li>-->
+<!--						<li><img src="{{ product.image }}" alt=""></li>-->
+<!--						<li><img src="{{ product.image }}" alt=""></li>-->
 					</ul>
 				</div>
 
@@ -46,14 +46,18 @@
 
 									<!-- Product Quantity -->
 									<div class="product_quantity clearfix">
-										<span>Quantity: 95</span>
+										<span>Quantity: {{ product.quantity }}</span>
 									</div>
 
 								</div>
 
-								<div class="product_price">$2000</div>
+								<div class="product_price">${{ product.price }}</div>
 								<div class="button_container">
+									{% if product.quantity == 0 %}
+									<div class="button cart_button update-cart" style="background-color:red;">Out of Stock</div>
+									{% else %}
 									<button data-product="{{product.id}}" data-action="add" class="button cart_button update-cart">Add to Cart</button>
+									{% endif %}
 								</div>
 
 							</form>
@@ -81,10 +85,3 @@
 <script src="{% static 'js/product_custom.js' %}"></script>
 {% endblock js%}
 
-
-<!--name: {{ product.name }} <br>-->
-<!--category: {{ product.category }} <br>-->
-<!--price: {{ product.price }} <br>-->
-<!--description: {{ product.description }} <br>-->
-<!--digital: {{ product.digital }} <br>-->
-<!--<img src="{{ product.imageURL }}">-->

@@ -32,11 +32,13 @@
 						<div class="sidebar_section">
 							<div class="sidebar_title">Categories</div>
 							<ul class="sidebar_categories">
-								<li><a href="{% url 'productCategory' 'A'%}">Category: A</a></li>
-								<li><a href="{% url 'productCategory' 'B'%}">Category: B</a></li>
-								<li><a href="{% url 'productCategory' 'C'%}">Category: C</a></li>
-								<li><a href="{% url 'productCategory' 'D'%}">Category: D</a></li>
-								<li><a href="{% url 'store'%}">Category: ALL</a></li>
+								<li><a href="{% url 'productCategory' 'videcam' %}">Videcams</a></li>
+								<li><a href="{% url 'productCategory' 'intercom' %}">Intercoms</a></li>
+								<li><a href="{% url 'productCategory' 'subscription' %}">Subscriptions</a></li>
+								<li><a href="{% url 'productCategory' 'signaling' %}">Signalings</a></li>
+								<li><a href="{% url 'productCategory' 'metaldetector' %}">Metal-detectors</a></li>
+								<li><a href="{% url 'productCategory' 'walkie-talkie' %}">Walkie-talkies</a></li>
+								<li><a href="{% url 'store' %}">Category: ALL</a></li>
 							</ul>
 						</div>
 					</div>
@@ -71,7 +73,7 @@
 							<div class="product_item">
 								<div class="product_border"></div>
 								<a href="{% url 'productdetail' product.id %}">
-									<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="{{ product.imageURL }}" alt=""></div>
+									<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="{{ product.image }}" alt=""></div>
 								</a>
 								<div class="product_content">
 									<div class="product_price">${{ product.price|floatformat:2 }}</div>

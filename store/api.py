@@ -6,6 +6,7 @@ from .serializers import *
 
 SECRET_KEY = "q4t7w!z%C*F-JaNcRfUjXn2r5u8x/A?D"
 
+
 class ShieldCustomerAPIView(APIView):
     def post(self, request):
         serializer = ShieldCustomerCheckSerializer(data=request.data)

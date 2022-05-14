@@ -80,12 +80,12 @@
 			<div class="container">
 				<div class="row">
 					<div class="col d-flex flex-row">
-						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="images/phone.png" alt=""></div>+776 819 08 02</div>
-						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="images/mail.png" alt=""></div><a href="mailto:karibay.02@gmail.com">karibay.02@gmail.com</a></div>
+						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{% static 'images/phone.png' %}" alt=""></div>+776 819 08 02</div>
+						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{% static 'images/mail.png' %}" alt=""></div><a href="mailto:karibay.02@gmail.com">karibay.02@gmail.com</a></div>
 						<div class="top_bar_content ml-auto">
 
 							<div class="top_bar_user">
-								<div class="user_icon"><img src="images/user.svg" alt=""></div>
+								<div class="user_icon"><img src="{% static 'images/user.svg' %}" alt=""></div>
 								{% if user.is_authenticated%}
 									<div><a href="{% url 'logout'%}">Logout</a></div>
 								{% else %}
@@ -119,23 +119,17 @@
 						<div class="header_search">
 							<div class="header_search_content">
 								<div class="header_search_form_container">
-									<form action="#" class="header_search_form clearfix">
-										<input type="search" required="required" class="header_search_input" placeholder="Search for products...">
+									{% csrf_token %}
+									<form action="{% url 'search_results' %}" method="get" class="header_search_form clearfix">
+										<input name="context" type="search" required="required" class="header_search_input" placeholder="Search for products...">
 										<div class="custom_dropdown">
 											<div class="custom_dropdown_list">
-												<span class="custom_dropdown_placeholder clc">All Categories</span>
-												<i class="fas fa-chevron-down"></i>
+												<span class="custom_dropdown_placeholder clc"></span>
 												<ul class="custom_list clc">
-													<li><a class="clc" href="#">All Categories</a></li>
-													<li><a class="clc" href="#">A</a></li>
-													<li><a class="clc" href="#">B</a></li>
-													<li><a class="clc" href="#">C</a></li>
-													<li><a class="clc" href="#">D</a></li>
-													<li><a class="clc" href="#">E</a></li>
 												</ul>
 											</div>
 										</div>
-										<button type="submit" class="header_search_button trans_300" value="Submit"><img src="images/search.png" alt=""></button>
+										<button type="submit" class="header_search_button trans_300" value="Submit"><img src="{% static 'images/search.png' %}" alt=""></button>
 									</form>
 								</div>
 							</div>
@@ -147,7 +141,6 @@
 						<div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
 							{% if user.is_authenticated%}
 							<div class="wishlist d-flex flex-row align-items-center justify-content-end">
-<!--								<div class="wishlist_icon"><img src="images/heart.png" alt=""></div>-->
 								<div class="wishlist_content">
 									<div class="wishlist_text"><a href="#">{{ user }}</a></div>
 								</div>
@@ -192,31 +185,12 @@
 								</div>
 
 								<ul class="cat_menu">
-									<li><a href="#">Services<i class="fas fa-chevron-right ml-auto"></i></a></li>
-									<li><a href="#">Cameras<i class="fas fa-chevron-right"></i></a></li>
-									<li class="hassubs">
-										<a href="#">Hardware<i class="fas fa-chevron-right"></i></a>
-										<ul>
-											<li class="hassubs">
-												<a href="#">Menu Item<i class="fas fa-chevron-right"></i></a>
-												<ul>
-													<li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-													<li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-													<li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-													<li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-												</ul>
-											</li>
-											<li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-										</ul>
-									</li>
-									<li><a href="#">Security 1<i class="fas fa-chevron-right"></i></a></li>
-									<li><a href="#">Security 2<i class="fas fa-chevron-right"></i></a></li>
-									<li><a href="#">Security 3<i class="fas fa-chevron-right"></i></a></li>
-									<li><a href="#">Security 4<i class="fas fa-chevron-right"></i></a></li>
-									<li><a href="#">Security 5<i class="fas fa-chevron-right"></i></a></li>
-									<li><a href="#">Security 6<i class="fas fa-chevron-right"></i></a></li>
+									<li><a href="{% url 'productCategory' 'videcam' %}">Videcams</a></li>
+									<li><a href="{% url 'productCategory' 'intercom' %}">Intercoms</a></li>
+									<li><a href="{% url 'productCategory' 'subscription' %}">Subscriptions</a></li>
+									<li><a href="{% url 'productCategory' 'signaling' %}">Signalings</a></li>
+									<li><a href="{% url 'productCategory' 'metaldetector' %}">Metal-detectors</a></li>
+									<li><a href="{% url 'productCategory' 'walkie-talkie' %}">Walkie-talkies</a></li>
 								</ul>
 							</div>
 
@@ -225,47 +199,29 @@
 							<div class="main_nav_menu ml-auto">
 								<ul class="standard_dropdown main_nav_dropdown">
 									<li><a href="{% url 'logout'%}">Home<i class="fas fa-chevron-down"></i></a></li>
-									<li class="hassubs">
-										<a href="#">Super Deals<i class="fas fa-chevron-down"></i></a>
-										<ul>
-											<li>
-												<a href="#">Menu Item<i class="fas fa-chevron-down"></i></a>
-												<ul>
-													<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-													<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-													<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-												</ul>
-											</li>
-											<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-										</ul>
-									</li>
+
 									<li class="hassubs">
 										<a href="#recently">Recently Viewed<i class="fas fa-chevron-down"></i></a>
 										<ul>
 											<li>
-												<a href="#">Menu Item<i class="fas fa-chevron-down"></i></a>
-												<ul>
-													<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-													<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-													<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-												</ul>
+												<a href="{% url 'productdetail' 18 %}">ComOnyX CO-SH01-014v2<i class="fas fa-chevron-down"></i></a>
+<!--												<ul>-->
+<!--													<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>-->
+<!--													<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>-->
+<!--													<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>-->
+<!--												</ul>-->
 											</li>
-											<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+											<li><a href="{% url 'productdetail' 23 %}">CTV-DP401 S<i class="fas fa-chevron-down"></i></a></li>
+											<li><a href="{% url 'productdetail' 29 %}">Garrett Super Scanner<i class="fas fa-chevron-down"></i></a></li>
 										</ul>
 									</li>
 									<li  class="hassubs">
 										<a href="#">Pages<i class="fas fa-chevron-down"></i></a>
 										<ul>
 											<li><a href="{% url 'store' %}">Shop<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">Blog<i class="fas fa-chevron-down"></i></a></li>
 											<li><a href="{% url 'cart'%}">Cart<i class="fas fa-chevron-down"></i></a></li>
 										</ul>
 									</li>
-									<li><a href="#">Blog<i class="fas fa-chevron-down"></i></a></li>
 								</ul>
 							</div>
 
@@ -316,10 +272,11 @@
 					<div class="footer_column">
 						<div class="footer_title">Find it Fast</div>
 						<ul class="footer_list">
-							<li><a href="#">Category: A</a></li>
-							<li><a href="#">Category: B</a></li>
-							<li><a href="#">Category: C</a></li>
-							<li><a href="#">Category: D</a></li>
+							<li><a href="{% url 'productCategory' 'videcam' %}">Videcams</a></li>
+							<li><a href="{% url 'productCategory' 'intercom' %}">Intercoms</a></li>
+							<li><a href="{% url 'productCategory' 'signaling' %}">Signalings</a></li>
+							<li><a href="{% url 'productCategory' 'metaldetector' %}">Metal-detectors</a></li>
+							<li><a href="{% url 'productCategory' 'walkie-talkie' %}">Walkie-talkies</a></li>
 						</ul>
 					</div>
 				</div>
@@ -328,10 +285,7 @@
 					<div class="footer_column">
                         <div class="footer_title">Services</div>
 						<ul class="footer_list">
-							<li><a href="#">Service: A</a></li>
-							<li><a href="#">Service: B</a></li>
-							<li><a href="#">Service: C</a></li>
-							<li><a href="#">Service: D</a></li>
+							<li><a href="{% url 'productCategory' 'subscription' %}">Subscriptions</a></li>
 						</ul>
 					</div>
 				</div>
@@ -340,11 +294,11 @@
 					<div class="footer_column">
 						<div class="footer_title">Customer Care</div>
 						<ul class="footer_list">
-							<li><a href="#">My Account</a></li>
-							<li><a href="#">Order Tracking</a></li>
-							<li><a href="#">Customer Services</a></li>
-							<li><a href="#">Returns / Exchange</a></li>
-							<li><a href="#">Product Support</a></li>
+<!--							<li><a href="mailto:karibay.02@gmail.com">My Account</a></li>-->
+							<li><a href="mailto:karibay.02@gmail.com">Order Tracking</a></li>
+							<li><a href="mailto:karibay.02@gmail.com">Customer Services</a></li>
+							<li><a href="mailto:karibay.02@gmail.com">Returns / Exchange</a></li>
+							<li><a href="mailto:karibay.02@gmail.com">Product Support</a></li>
 						</ul>
 					</div>
 				</div>
@@ -367,10 +321,10 @@
 						</div>
 						<div class="logos ml-sm-auto">
 							<ul class="logos_list">
-								<li><a href="#"><img src="images/logos_1.png" alt=""></a></li>
-								<li><a href="#"><img src="images/logos_2.png" alt=""></a></li>
-								<li><a href="#"><img src="images/logos_3.png" alt=""></a></li>
-								<li><a href="#"><img src="images/logos_4.png" alt=""></a></li>
+								<li><a href="#"><img src="{% static 'images/logos_1.png'%}" alt=""></a></li>
+								<li><a href="#"><img src="{% static 'images/logos_2.png'%}" alt=""></a></li>
+								<li><a href="#"><img src="{% static 'images/logos_3.png'%}" alt=""></a></li>
+								<li><a href="#"><img src="{% static 'images/logos_4.png'%}" alt=""></a></li>
 							</ul>
 						</div>
 					</div>
