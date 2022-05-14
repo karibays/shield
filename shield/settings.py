@@ -25,9 +25,7 @@ SECRET_KEY = 'django-insecure-=o5yb9w@+9$6tg%j4v6s@mjrrt3mt5vtis36@sn=d+-zsm11q(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.202.1.199',
-                 'localhost',
-                 '0.0.0.0']
+ALLOWED_HOSTS = ['karibay-shield.herokuapp.com']
 
 
 # Application definition
@@ -81,10 +79,10 @@ WSGI_APPLICATION = 'shield.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'shield',
-        'USER': 'postgres',
-        'PASSWORD': '1991',
-        'HOST': 'localhost',
+        'NAME': 'd82daml096r7hl',
+        'USER': 'zjgzijvhplsoeq',
+        'PASSWORD': '8a84795b6988d58ddf23abd4b54b390c1ef642b58c987e4d0559a82a1a0f21c7',
+        'HOST': 'ec2-3-229-11-55.compute-1.amazonaws.com',
         'PORT': '5432'
     }
 }
