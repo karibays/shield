@@ -1,4 +1,3 @@
-from django.views.generic import ListView
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import datetime
@@ -7,6 +6,7 @@ from .models import *
 from .utils import cartData, guestOrder
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
+
 
 
 def productCategory(request, pk):
@@ -28,7 +28,6 @@ def productCategory(request, pk):
 
 def productdetail(request, pk):
     product = Product.objects.get(id=pk)
-
     data = cartData(request)
     cartItems = data['cartItems']
     order = data['order']
@@ -65,6 +64,9 @@ def store(request):
     data = cartData(request)
     cartItems = data['cartItems']
     order = data['order']
+
+    testdata = Product.objects.first().__dict__
+    print(f'testdata --- {testdata}')
 
     products = Product.objects.all()
     context = {
